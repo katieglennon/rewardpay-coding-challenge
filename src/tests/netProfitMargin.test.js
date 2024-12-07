@@ -16,4 +16,14 @@ describe("calculateNetProfitMargin", () => {
 
     expect(npm).toBeCloseTo(roundedExpectedNpm, 1);
   });
+
+  it("throws an error when revenue is 0", () => {
+    const data = [
+      { account_category: "revenue", total_value: 0 },
+      { account_category: "expense", total_value: 500 },
+    ];
+    expect(() => calculateNetProfitMargin(data, 0)).toThrow(
+      "Net Profit Margin cannot be calculated as Revenue is zero"
+    );
+  });
 });

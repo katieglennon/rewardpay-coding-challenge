@@ -1,4 +1,10 @@
 export function calculateGrossProfitMargin(data, revenue) {
+  if (revenue === 0) {
+    throw new Error(
+      "Gross Profit Margin cannot be calculated as Revenue is zero"
+    );
+  }
+
   let costOfSales = 0;
 
   data.forEach((item) => {

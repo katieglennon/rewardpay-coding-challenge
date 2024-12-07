@@ -13,4 +13,14 @@ describe("calculateWorkingCaptialRation", () => {
 
     expect(wcr).toBeCloseTo(expectedWcr, 1);
   });
+
+  it("throws an error when liabilities is 0", () => {
+    const data = [
+      { account_category: "liabilities", total_value: 0 },
+      { account_category: "assets", total_value: 500 },
+    ];
+    expect(() => calculateWorkingCaptialRatio(data)).toThrow(
+      "Working Capital Ratio cannot be calculated as Liabilities are zero"
+    );
+  });
 });
