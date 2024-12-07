@@ -3,22 +3,28 @@ import { calculateRevenue } from "./src/calculations/revenue.js";
 import { calculateExpenses } from "./src/calculations/expenses.js";
 import { calculateGrossProfitMargin } from "./src/calculations/grossProfitMargin.js";
 import { calculateNetProfitMargin } from "./src/calculations/netProfitMargin.js";
+import { calculateWorkingCaptialRatio } from "./src/calculations/workingCapitalRatio.js";
+import { formatCurrency, formatPercentage } from "./src/utils/helpers.js";
 
 async function main() {
   try {
     const filePath = "./src/data/data.json";
     const { data } = await readData(filePath);
 
-    // calculation functions
     const revenue = calculateRevenue(data);
     const expenses = calculateExpenses(data);
     const grossProfitMargin = calculateGrossProfitMargin(data, revenue);
     const netProfitMargin = calculateNetProfitMargin(data);
+    const workingCapitalRatio = calculateWorkingCaptialRatio(data);
 
-    console.log(revenue);
-    console.log(expenses);
-    console.log(grossProfitMargin);
-    console.log(netProfitMargin);
+    console.log(`Accounting Metrics:`);
+    console.log(`Revenue: ${formatCurrency(revenue)}`);
+    console.log(`Expenses: ${formatCurrency(expenses)}`);
+    console.log(`Gross Profit Margin: ${formatPercentage(grossProfitMargin)}`);
+    console.log(`Net Profit Margin: ${formatPercentage(netProfitMargin)}`);
+    console.log(
+      `Working Capital Ratio: ${formatPercentage(workingCapitalRatio)}`
+    );
   } catch (error) {
     console.error(`An error occured: ${error.message}`);
   }
